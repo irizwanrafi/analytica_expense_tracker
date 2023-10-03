@@ -41,29 +41,13 @@ class _MyUserRegistrationState extends State<_MyUserRegistration> {
       bodyWidget: Form(
         key: _formKey,
         child: Column(
-          children: context.isLandscape
-              ? [
-                  _usernameWidget(),
-                  Row(
-                    children: [
-                      Expanded(child: _fullNameWidget()),
-                      Expanded(child: _genderWidget()),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(child: _passwordWidget()),
-                      Expanded(child: _confirmPasswordWidget()),
-                    ],
-                  ),
-                ]
-              : [
-                  _usernameWidget(),
-                  _fullNameWidget(),
-                  _genderWidget(),
-                  _passwordWidget(),
-                  _confirmPasswordWidget(),
-                ],
+          children: [
+            _usernameWidget(),
+            _fullNameWidget(),
+            _genderWidget(),
+            _passwordWidget(),
+            _confirmPasswordWidget(),
+          ],
         ),
       ),
       onRedTap: () => Navigator.pop(context),
@@ -79,25 +63,15 @@ class _MyUserRegistrationState extends State<_MyUserRegistration> {
                     fullName: _fullName.text.trim(),
                     gender: _gender.text.trim(),
                     password: _password.text.trim()));
-            if (context.mounted) {
-              if (response == null) {
-                Navigator.pop(context);
-                Get.to(() => const MyHomeScreen());
-              } else {
-                showMyParseErrorDialog(context, response);
-              }
+            if (response == null) {
+              if (context.mounted) Navigator.pop(context);
+              Get.to(() => const MyHomeScreen());
+            } else {
+              if (context.mounted) showMyParseErrorDialog(context, response);
             }
           } else {
             showMyMessageSnackbar('Error 125', 'Password did\'nt matched');
           }
-          // showMyLoadingDialog(context);
-          // ParseError? error = await userLogin(_username, _password);
-          // if (context.mounted) {
-          //   Navigator.pop(context);
-          //   error == null
-          //       ? Get.to(() => const MyDashboardScreen())
-          //       : showMyParseErrorDialog(context, error);
-          // }
         }
       },
     );
@@ -123,6 +97,7 @@ class _MyUserRegistrationState extends State<_MyUserRegistration> {
     return MyGeneralTFF(
       label: 'Password',
       controller: _password,
+      isObscure: true,
     );
   }
 
@@ -130,6 +105,7 @@ class _MyUserRegistrationState extends State<_MyUserRegistration> {
     return MyGeneralTFF(
       label: 'Confirm Password',
       controller: _confirmPassword,
+      isObscure: true,
     );
   }
 
