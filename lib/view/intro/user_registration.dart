@@ -36,7 +36,7 @@ class _MyUserRegistrationState extends State<_MyUserRegistration> {
   @override
   Widget build(BuildContext context) {
     return MyGeneralDialog(
-      width: 500,
+      width: 300,
       title: 'Registration',
       bodyWidget: Form(
         key: _formKey,
